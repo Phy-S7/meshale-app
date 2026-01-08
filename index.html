@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meshale</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg0:#000818;
+  --bg1:#000c22;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.55);
+  --muted2:rgba(255,255,255,.40);
+  --stroke:rgba(255,255,255,.12);
+  --stroke2:rgba(255,255,255,.18);
+  --blue:#184ce6;
+  --blue2:#0f3fd3;
+  --gold:#ffcc33;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 700px at 50% 18%, rgba(255,255,255,.06), transparent 60%),
+    radial-gradient(900px 520px at 50% 105%, rgba(0,0,0,.65), transparent 55%),
+    linear-gradient(180deg,var(--bg0),var(--bg1));
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  padding:14px 22px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  background:rgba(0,8,24,.65);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+/* BRAND */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  user-select:none;
+}
+.brand svg{ width:34px; height:34px; display:block; }
+.brand span{
+  font-family:"Space Grotesk", Inter, sans-serif;
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:-0.02em;
+}
+
+/* CENTER NAV */
+.nav{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+.nav a{
+  color:rgba(255,255,255,.7);
+  text-decoration:none;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+}
+.nav a:hover{ background:rgba(255,255,255,.06); color:#fff; }
+.nav a.active{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.10);
+  color:#fff;
+}
+
+/* RIGHT ACTIONS (aligned) */
+.actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.action-btn{
+  height:40px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 14px;
+  border-radius:12px;
+  text-decoration:none;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.generate-link{
+  font-family:"Space Grotesk";
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(180deg,var(--blue),var(--blue2));
+}
+
+.signup-link{
+  font-family:Inter;
+  font-weight:700;
+  color:rgba(255,255,255,.78);
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.03);
+}
+.signup-link:hover{ background:rgba(255,255,255,.06); color:#fff; }
+
+/* ================= PAGES ================= */
+.page{display:none}
+.page.active{display:block}
+
+.wrap{
+  min-height:calc(100vh - 64px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px 20px;
+}
+
+.container{
+  max-width:1200px;
+  width:100%;
+  text-align:center;
+}
+
+h1{
+  font-size:clamp(56px,6vw,96px);
+  font-weight:800;
+  margin:0;
+}
+
+.subtitle{
+  margin:16px 0 50px;
+  font-size:20px;
+  color:var(--muted);
+}
+
+/* ================= HOME FORM ================= */
+.form{max-width:1120px;margin:auto}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:30px;
+  text-align:left;
+}
+
+.field label{
+  font-weight:700;
+  margin-bottom:10px;
+  display:block;
+  font-size:18px;
+}
+
+.control{
+  height:56px;
+  width:100%;
+  border-radius:14px;
+  border:1px solid var(--stroke);
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  padding:0 14px;
+  outline:none;
+}
+.control::placeholder{ color:var(--muted2); }
+.control:focus{
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 0 0 4px rgba(24,76,230,.18);
+}
+
+.notes{margin-top:24px}
+.notes .control{height:60px}
+
+.actions-main{
+  margin-top:38px;
+  display:flex;
+  justify-content:center;
+}
+
+.btn{
+  width:420px;
+  height:76px;
+  border-radius:20px;
+  font-size:34px;
+  font-weight:800;
+  border:none;
+  cursor:pointer;
+  background:linear-gradient(180deg,var(--blue),var(--blue2));
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  transition:.15s;
+}
+.btn:hover{ filter:brightness(1.06); }
+.btn:active{ transform:translateY(1px) scale(.995); }
+.btn:disabled{ opacity:.75; cursor:not-allowed; }
+
+.sparkles svg{
+  width:20px;
+  height:20px;
+  fill:var(--gold);
+  filter:drop-shadow(0 0 8px var(--gold));
+}
+
+/* ================= PRICING ================= */
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+  width:min(1100px,100%);
+  margin:0 auto;
+  text-align:left;
+}
+
+.plan{
+  border-radius:22px;
+  padding:26px;
+  border:1px solid var(--stroke);
+  background:rgba(0,0,0,.22);
+  box-shadow:0 18px 55px rgba(0,0,0,.35);
+}
+
+.plan .badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.82);
+  margin-bottom:12px;
+}
+
+.plan.pro{
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 0 0 1px rgba(24,76,230,.55),
+    0 24px 70px rgba(0,0,0,.45);
+  position:relative;
+}
+.plan.pro::before{
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border-radius:26px;
+  background:radial-gradient(420px 140px at 50% 0%, rgba(24,76,230,.35), transparent 60%);
+  filter:blur(12px);
+  opacity:.6;
+  z-index:-1;
+}
+
+.plan h3{
+  margin:0 0 8px;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-0.01em;
+}
+.plan p{
+  margin:0 0 14px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.price{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  margin:10px 0 16px;
+}
+.price .amt{
+  font-size:40px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+}
+.price .per{
+  color:var(--muted);
+  font-weight:700;
+}
+
+.plan ul{
+  margin:0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.75;
+}
+
+.plan button{
+  margin-top:18px;
+  width:100%;
+  height:52px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.16);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0)),
+    linear-gradient(180deg,var(--blue),var(--blue2));
+  color:#fff;
+  font-weight:900;
+  font-size:15px;
+  cursor:pointer;
+  transition:.15s;
+}
+.plan button:hover{ filter:brightness(1.06); }
+.plan button:active{ transform:translateY(1px); }
+
+/* ================= ABOUT ================= */
+.about{
+  width:min(900px,100%);
+  margin:0 auto;
+  text-align:left;
+  border-radius:22px;
+  border:1px solid var(--stroke);
+  background:rgba(0,0,0,.22);
+  box-shadow:0 18px 55px rgba(0,0,0,.35);
+  padding:26px;
+}
+.about h2{
+  margin:0 0 10px;
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+}
+.about p{
+  margin:0 0 14px;
+  color:var(--muted);
+  line-height:1.65;
+}
+.about .bullets{
+  margin:0;
+  padding-left:18px;
+  color:rgba(255,255,255,.78);
+  line-height:1.75;
+}
+
+/* ================= SIGNUP ================= */
+.card{
+  width:min(520px,100%);
+  margin:0 auto;
+  padding:26px;
+  border-radius:22px;
+  background:rgba(0,0,0,.22);
+  border:1px solid var(--stroke);
+  box-shadow:0 24px 70px rgba(0,0,0,.45);
+  text-align:left;
+}
+
+.card h2{
+  margin:0 0 8px;
+  font-size:26px;
+  font-weight:900;
+}
+.card .hint{
+  margin:0 0 18px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.input{
+  width:100%;
+  height:52px;
+  margin-bottom:12px;
+  border-radius:14px;
+  border:1px solid var(--stroke);
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  padding:0 14px;
+  outline:none;
+}
+.input::placeholder{ color:var(--muted2); }
+.input:focus{
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 0 0 4px rgba(24,76,230,.18);
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.btn-small{
+  width:100%;
+  height:52px;
+  border-radius:16px;
+  border:none;
+  font-weight:900;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.primary{
+  background:linear-gradient(180deg,var(--blue),var(--blue2));
+  color:#fff;
+  margin-top:6px;
+}
+.primary:hover{ filter:brightness(1.06); }
+.primary:active{ transform:translateY(1px); }
+
+.secondary{
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.10);
+}
+.secondary:hover{ background:rgba(255,255,255,.07); }
+
+.small{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  .grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .nav{display:none}
+  .grid{grid-template-columns:1fr}
+  .btn{width:100%}
+  .row{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="brand" onclick="navigate('home')" title="Meshale">
+    <!-- Transparent SVG logo -->
+    <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-label="Meshale logo">
+      <defs>
+        <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff7a18"/>
+          <stop offset="100%" stop-color="#ffcc33"/>
+        </linearGradient>
+        <linearGradient id="cool" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0a3d62"/>
+          <stop offset="100%" stop-color="#0b1d3a"/>
+        </linearGradient>
+      </defs>
+
+      <polygon points="100,20 180,100 100,180 20,100" fill="url(#warm)"/>
+      <line x1="100" y1="20" x2="100" y2="180" stroke="white" stroke-width="6"/>
+      <circle cx="100" cy="100" r="12" fill="white"/>
+      <polygon points="40,180 160,180 100,280" fill="url(#cool)"/>
+    </svg>
+    <span>Meshale</span>
+  </div>
+
+  <div class="nav">
+    <a href="#home" data-target="home">Home</a>
+    <a href="#about" data-target="about">About Us</a>
+    <a href="#pricing" data-target="pricing">Pricing</a>
+  </div>
+
+  <div class="actions">
+    <a class="action-btn generate-link" href="#home" data-target="home">Generate</a>
+    <a class="action-btn signup-link" href="#signup" data-target="signup">Sign Up</a>
+  </div>
+</div>
+
+<!-- HOME -->
+<section id="home" class="page active">
+  <div class="wrap">
+    <div class="container">
+      <h1>Meshale LLM</h1>
+      <div class="subtitle">Experience a real exam simulation, powered by AI.</div>
+
+      <div class="form">
+        <div class="grid">
+          <div class="field">
+            <label>Exam Type</label>
+            <select class="control">
+              <option>TYT Türkçe</option>
+              <option>TYT Matematik</option>
+              <option>AYT Edebiyat</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Topic</label>
+            <select class="control">
+              <option>Any</option>
+              <option>Paragraph</option>
+              <option>Grammar</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Difficulty</label>
+            <select class="control">
+              <option>Easy</option>
+              <option>Intermediate</option>
+              <option>Hard</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Format</label>
+            <select class="control">
+              <option>Multiple choice</option>
+              <option>Open-ended</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Questions</label>
+            <input class="control" type="number" value="40" min="1" max="200">
+          </div>
+        </div>
+
+        <div class="notes">
+          <input class="control" placeholder="Notes (optional)">
+        </div>
+
+        <div class="actions-main">
+          <button class="btn" id="generateBtn" type="button">
+            Generate
+            <span class="sparkles" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l1.2 5.1L18 9l-4.8 1.9L12 16l-1.2-5.1L6 9z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M19 3l.7 3.1L23 7l-3.3 1-.7 3.1-.7-3.1L15 7z"/></svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="page">
+  <div class="wrap">
+    <div class="container">
+      <h1>About Us</h1>
+      <div class="subtitle">A focused way to practice with exam-realistic questions.</div>
+
+      <div class="about">
+        <h2>Why Meshale?</h2>
+        <p>
+          Meshale is built for students who want a clean, distraction-free environment to generate high-quality practice questions.
+          We prioritize clarity, realism, and consistency in the exam experience.
+        </p>
+        <ul class="bullets">
+          <li>Exam-style question generation with controllable difficulty</li>
+          <li>Simple workflows: select settings → generate → practice</li>
+          <li>Designed for focus: minimal UI, maximum clarity</li>
+        </ul>
+        <p style="margin-top:14px;">
+          This is a UI demo; you can connect your backend or AI API later without changing the design.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="page">
+  <div class="wrap">
+    <div class="container">
+      <h1>Pricing</h1>
+      <div class="subtitle">Choose a plan that fits your preparation style.</div>
+
+      <div class="pricing-grid">
+        <div class="plan">
+          <div class="badge">Starter</div>
+          <h3>Starter</h3>
+          <p>For light practice and quick sessions.</p>
+          <div class="price">
+            <div class="amt">$5</div>
+            <div class="per">/ month</div>
+          </div>
+          <ul>
+            <li>50 questions / month</li>
+            <li>Basic difficulty control</li>
+            <li>Standard generation speed</li>
+          </ul>
+          <button type="button" onclick="selectPlan('Starter')">Select Plan</button>
+        </div>
+
+        <div class="plan pro">
+          <div class="badge">Recommended</div>
+          <h3>Pro</h3>
+          <p>For consistent practice and faster iteration.</p>
+          <div class="price">
+            <div class="amt">$15</div>
+            <div class="per">/ month</div>
+          </div>
+          <ul>
+            <li>300 questions / month</li>
+            <li>Advanced difficulty tuning</li>
+            <li>Faster generation</li>
+            <li>Priority features</li>
+          </ul>
+          <button type="button" onclick="selectPlan('Pro')">Select Plan</button>
+        </div>
+
+        <div class="plan">
+          <div class="badge">Ultimate</div>
+          <h3>Ultimate</h3>
+          <p>For heavy users and full coverage.</p>
+          <div class="price">
+            <div class="amt">$50</div>
+            <div class="per">/ month</div>
+          </div>
+          <ul>
+            <li>Unlimited questions</li>
+            <li>All exam types</li>
+            <li>Maximum generation speed</li>
+            <li>Early access features</li>
+          </ul>
+          <button type="button" onclick="selectPlan('Ultimate')">Select Plan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGN UP -->
+<section id="signup" class="page">
+  <div class="wrap">
+    <div class="container">
+      <h1>Sign Up</h1>
+      <div class="subtitle">Create your account to get started.</div>
+
+      <div class="card">
+        <h2>Create account</h2>
+        
+
+        <div class="row">
+          <input class="input" id="firstName" placeholder="First name">
+          <input class="input" id="lastName" placeholder="Last name">
+        </div>
+
+        <input class="input" id="email" type="email" placeholder="Email">
+        <input class="input" id="password" type="password" placeholder="Password">
+        <input class="input" id="confirm" type="password" placeholder="Confirm password">
+
+        <button class="btn-small primary" type="button" onclick="signup()">Sign Up</button>
+        <button class="btn-small secondary" type="button" onclick="navigate('home')">Back to Generate</button>
+
+        <div class="small">
+          By signing up, you agree to our Terms and Privacy Policy.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ---------- Router-like page switching ---------- */
+function setActiveNav(target){
+  document.querySelectorAll('[data-target]').forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('data-target') === target);
+  });
+}
+
+function navigate(target){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page = document.getElementById(target);
+  if(page) page.classList.add('active');
+
+  setActiveNav(target);
+
+  // Keep URL hash in sync (optional but helpful)
+  history.replaceState(null, '', '#' + target);
+}
+
+document.querySelectorAll('[data-target]').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    e.preventDefault();
+    navigate(a.getAttribute('data-target'));
+  });
+});
+
+// Load page based on hash
+const initial = (location.hash || '#home').replace('#','');
+navigate(['home','about','pricing','signup'].includes(initial) ? initial : 'home');
+
+/* ---------- Generate button ---------- */
+document.getElementById('generateBtn').addEventListener('click', (e)=>{
+  const btn = e.currentTarget;
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = "Generating...";
+  setTimeout(()=>{
+    btn.disabled = false;
+    btn.innerHTML = original;
+    alert("✨ Questions generated (demo)");
+  }, 1400);
+});
+
+/* ---------- Pricing select plan ---------- */
+function selectPlan(plan){
+  alert("💳 " + plan + " selected (demo).");
+  navigate('signup');
+}
+
+/* ---------- Signup validation ---------- */
+function signup(){
+  const fn = document.getElementById('firstName').value.trim();
+  const ln = document.getElementById('lastName').value.trim();
+  const em = document.getElementById('email').value.trim();
+  const pw = document.getElementById('password').value;
+  const cf = document.getElementById('confirm').value;
+
+  if(!fn || !ln || !em || !pw || !cf){
+    alert("Please fill in all fields.");
+    return;
+  }
+  if(pw !== cf){
+    alert("Passwords do not match.");
+    return;
+  }
+  alert("✅ Account created (demo).");
+  navigate('home');
+}
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
